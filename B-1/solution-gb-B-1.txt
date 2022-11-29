@@ -1,0 +1,32 @@
+---------------------
+B-1 Function Inlining
+---------------------
+
+main ()                                 |main ()                                
+{                                       |{                                      
+  int x;                                |  int D.1598;                          
+  int D.1591;                           |  int a;                               
+                                        |  int x;                               
+<bb 2>:                                 |  int D.1591;                          
+  x_1 = 3;                              |                                       
+  x_2 = AddTwo (x_1);                   |<bb 2>:                                
+  D.1591_3 = x_2;                       |  x_1 = 3;                             
+  return D.1591_3;                      |  a_4 = x_1 + 2;                       
+                                        |  D.1598_5 = a_4;                      
+}                                       |  x_2 = D.1598_5;                      
+                                        |  D.1591_3 = x_2;                      
+                                        |  return D.1591_3;                     
+                                        |                                       
+                                        |}               
+
+Solutions
+---------
+
+        1   The function body exists because it may be called from another file.
+            The compiler cannot know about this before link time.
+
+        2   If the function was declared with the "static" keyword (which, in C,
+            is something  like "private  to this file  only") then  the function
+            body will disappear if there is no caller within the file.
+
+    

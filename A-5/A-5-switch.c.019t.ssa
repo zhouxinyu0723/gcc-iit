@@ -1,0 +1,52 @@
+
+;; Function main (main, funcdef_no=0, decl_uid=1910, cgraph_uid=1, symbol_order=0)
+
+main ()
+{
+  int b;
+  int a;
+  int D.1923;
+  int _9;
+
+  <bb 2> :
+  switch (a_2(D)) <default: <L6> [INV], case 1: <L0> [INV], case 2: <L1> [INV], case 3: <L2> [INV], case 4: <L3> [INV], case 5 ... 6: <L4> [INV]>
+
+  <bb 3> :
+<L0>:
+  b_7 = 2;
+  goto <bb 9>; [INV]
+
+  <bb 4> :
+<L1>:
+  b_6 = 3;
+  goto <bb 9>; [INV]
+
+  <bb 5> :
+<L2>:
+  b_4 = 4;
+
+  <bb 6> :
+<L3>:
+  b_5 = 5;
+  goto <bb 9>; [INV]
+
+  <bb 7> :
+<L4>:
+  b_3 = 6;
+  goto <bb 9>; [INV]
+
+  <bb 8> :
+<L6>:
+  b_8 = 7;
+
+  <bb 9> :
+  # b_1 = PHI <b_7(3), b_6(4), b_5(6), b_3(7), b_8(8)>
+  _9 = b_1;
+
+  <bb 10> :
+<L8>:
+  return _9;
+
+}
+
+

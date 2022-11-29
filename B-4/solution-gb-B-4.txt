@@ -1,0 +1,46 @@
+------------------------------------
+B-4 Common Subexpression Elimination
+------------------------------------
+
+
+main ()                                 |main ()                                
+{                                       |{                                      
+  int c;                                |  int c;                               
+  int b;                                |  int b;                               
+  int a;                                |  int a;                               
+  int D.1592;                           |  int D.1591;                          
+  int D.1591;                           |  int D.1590;                          
+  int D.1590;                           |                                       
+                                        |<bb 2>:                                
+<bb 2>:                                 |  D.1590_3 = a_1(D) + c_2(D);          
+  D.1590_3 = a_1(D) + c_2(D);           |  D.1591_5 = D.1590_3 + b_4(D);        
+  D.1591_5 = D.1590_3 + b_4(D);         |  D.1590_6 = D.1590_3;                 
+  D.1590_6 = c_2(D) + a_1(D);           |  b_7 = D.1591_5 * D.1590_6;           
+  b_7 = D.1591_5 * D.1590_6;            |  return b_7;                          
+  D.1592_8 = b_7;                       |                                       
+  return D.1592_8;                      |}                                      
+                                        |                                       
+}                                       |                           
+
+Solution
+--------
+
+        1   The original code showed two computations, but the FRE pass was able
+            to  reuse the  temporary variable  which  stored the  result of  the
+            intitial computation  of (a +  c). Thus,  one line of  execution was
+            saved, and so was the use of an extra variable.
+
+        2   Check  the   file  B-4.c.*.optimized.   This  is  the   last  GIMPLE
+            intra-procedural pass. If  it is same as the output  of FRE, then no
+            more optimizations have occured.
+
+        3   "return  b" was  required to  make the  computation of  variable `b'
+            meaningful. If function  `main' is going to "return 0"  and there is
+            no other  output, GCC  will realise that  the entire  computation of
+            variable `b' was  dead code and will eliminate  its dependencies one
+            by one until the resulting program reduces to:
+        
+                int main()
+                {
+                    return 0;
+                }

@@ -1,0 +1,10 @@
+# ignore all the files and folders in the root directory
+/*
+# exclude ".gitignore" and README.md
+!.gitignore
+!README.md
+# exclude all subfolders under the root
+!*/
+# exclude the contents (recursive) in all subfolders under the root
+!*/**
+
