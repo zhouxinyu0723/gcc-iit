@@ -16,7 +16,7 @@ Questions
 ---------
         1 Examine class dump.
           View Results: ./a.out > vf-1.out 
-                        vi -O vf-1.cpp vf-2.cpp.002t.class vf-1.out
+                        vi -O vf-1.cpp vf-1.cpp.002t.class vf-1.out
 
           Compare the results of vf-1.out with the vtable present in class dump.
           Do they match? Why or why not?

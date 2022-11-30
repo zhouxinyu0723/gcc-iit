@@ -1,0 +1,77 @@
+﻿Problem
+-------
+
+        In this assignment we will learn the basic difference between
+        an  intraprocedural pass  and an  interprocedural pass.  We will
+        observe  the  difference by  using  essentially  the same  piece
+        of  code  but  by  inserting  the pass  first  in  the  list  of
+        intraprocedural passes  and then in the  list of interprocedural
+        passes.
+
+        A static  plugin would entail  compilation of entire  GCC source
+        along with our pass file. We  will avoid this problem by using a
+        dynamic plugin. A dynamic plugin  is compiled separately and the
+        compiled code is invoked by the GCC generated compiler using the
+        mechanism of dynamic linking.
+
+        The code  for an  intraprocedural pass  has been  provided to
+        you.  This pass  iterates  over  the list  of  global and  local
+        variables in the input program and  prints their names in a dump
+        file called `dump-vars'. We have  also provided a `Makefile' and
+        a  sample  input  program  `test.c'. Follow  the  step  by  step
+        procedure given below to carry out the following tasks.
+
+        (a) Run the pass on test.c and find out the number of times a
+            variable is printed.
+
+        (b) Convert the pass  to an interprocedural pass  and repeat the
+            experiment. What difference do you observe?
+
+Procedure
+---------
+
+        The following steps are common to both questions (a) and (b).
+        The changes required for (b) are also given below.
+
+         1. In  the Makefile,  change the  path to  install directory
+            with absolute path of your install directory.
+         2. Execute the plugin by giving the command `make test'
+         3. Read the dump file `dump-vars'
+
+         Changing intraprocedural pass to interprocedural
+
+         1. Changing the pass description
+            a. Change `struct gimple_opt_pass' to simple_ipa_opt_pass
+            b. Change `GIMPLE_PASS' to `SIMPLE_IPA_PASS'
+         2. Changing the pass registry 
+
+                  Change the  name of  the reference pass  in `struct
+                  register_pass_info'.  For  GIMPLE_PASS  it  is  `ssa'.
+                  Change it to `pta' for SIMPLE_IPA_PASS
+
+         3. Changing the iterator in the pass.
+
+                  Intraprocedural pass is invoked for every function.
+                  Thus it  eliminates the need  to iterate over  all the
+                  functions. However in  interprocedural pass, to gather
+                  information about  functions we  need to  iterate over
+                  the nodes in call graph (variable `cgraph') as below.
+
+                /* Iterate over all the nodes in the cgraph */
+                for (node = cgraph_nodes; node; node = node->next)
+                {
+                   /* Nodes without a body, and clone nodes are not interesting. */
+                        if (!gimple_has_body_p (node->decl) || node->clone_of)
+                                continue;
+
+                        push_cfun (DECL_STRUCT_FUNCTION (node->decl));
+
+                        /* function call to print the local variables of a function*/
+                        gather_local_variables ();
+
+                        pop_cfun ();
+                }
+         4. Changing the dump option in the Makefile
+
+            For GIMPLE_PASS the dump option specified is `-fdump-tree-all'.
+            Change it to `-fdump-ipa-all' for SIMPLE_IPA_PASS.

@@ -20,7 +20,8 @@ class C : public B
 };
 
 int main()
-{       A  a, *array[3];
+{       
+	A  a, *array[3];
 	B  b;
 	C  c;
 	array[0]=&a;
@@ -28,8 +29,8 @@ int main()
 	array[2]=&c;
 	for (int i=0;i<3;i++)
 	{
-                array[i]->f();
-                array[i]->f('x');
-               array[i]->g();
-        }
+		array[i]->f();
+		array[i]->f('x');
+		array[i]->g();
+	}
 }	
