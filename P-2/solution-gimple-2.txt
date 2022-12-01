@@ -1,0 +1,74 @@
+﻿
+Solution
+--------
+
+        In this assignmnet we have learn  to add a dynamic plugin and
+        access  gimple  statements, categorise gimple statements  and
+        access individual operands.
+
+          1.  The code to access gimple statements is explained below.
+
+              /* We have already seen how to iterate over all the nodes in Assignment 1 
+                 part b. Here we are iterating over all the basic blocks in a function */
+              for (bb = ENTRY_BLOCK_PTR->next_bb; bb->next_bb != NULL; bb = bb->next_bb)
+              {
+                /* Iterate over all the statements in a basic block */
+                for (gsi = gsi_start_bb (bb); !gsi_end_p (gsi); gsi_next (&gsi))
+                {
+                        /* Fetch the statement */
+                        stmt = gsi_stmt (gsi);
+
+                        /* Process the statement */
+                        analyze_gimple (stmt);
+                }
+              }
+
+          2.  Code to classify gimple statements is explained below.
+
+              /* Test for the gimple code of the statement */
+              switch (gimple_code (stmt))
+              {
+                /* If assignment statement */
+                case GIMPLE_ASSIGN:
+                        /* API to dump gimple statement */
+                        print_gimple_stmt (dump_file, stmt, 1, 1);
+                break;
+
+                /* If function call statement */
+                case GIMPLE_CALL:
+
+                /* If conditional statement */
+                case GIMPLE_COND:
+              }
+
+          3.  Code to find out the type of operator in a statement is explained below.
+
+              /* Get the code of expression computed on RHS */
+              enum tree_code code = gimple_assign_rhs_code (stmt);
+
+              /* Determine the class of the expression on RHS */
+              switch (get_gimple_rhs_class (code))
+              {
+                /* Expression containing unary operator */
+                case GIMPLE_UNARY_RHS:
+
+                /* Expression containing binary operator */
+                case GIMPLE_BINARY_RHS:
+
+                /* All other statements would fall under this category */
+                case GIMPLE_SINGLE_RHS:
+              }
+
+          4. Code to dump the arguments passed to the function call statement is 
+             explained below.
+
+             /* Iterate over all the arguments in the call statement.
+                API gimple_call_num_args gives the number of arguments passed to 
+                the call statement */
+             for (i = 0; i < gimple_call_num_args (stmt); i++)
+             {
+                /* API gimple_call_arg would return the argument at position i */
+                tree arg = gimple_call_arg (stmt, i);
+             }
+
+

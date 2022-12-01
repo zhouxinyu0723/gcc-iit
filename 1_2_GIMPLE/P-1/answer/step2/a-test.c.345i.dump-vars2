@@ -1,0 +1,47 @@
+Local variables :
+d
+Local variables :
+c
+b
+a
+Global variables :
+q
+p
+void callme (int a)
+{
+  int * d;
+  int * p.0_1;
+  int _2;
+
+  <bb 2> :
+  p.0_1 = p;
+  _2 = MEM[(int *)p.0_1 + 12B];
+  a = _2;
+  q = &a;
+  d_6 = q;
+  return;
+
+}
+
+
+int main ()
+{
+  int * c;
+  int b;
+  int a;
+  int D.3245;
+  int _5;
+
+  <bb 2> :
+  p = &b;
+  callme (a_3(D));
+  _5 = 0;
+  b ={v} {CLOBBER(eol)};
+
+  <bb 3> :
+<L1>:
+  return _5;
+
+}
+
+

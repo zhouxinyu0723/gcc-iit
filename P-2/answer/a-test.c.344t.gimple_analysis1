@@ -1,0 +1,87 @@
+
+;; Function main (main, funcdef_no=0, decl_uid=2760, cgraph_uid=1, symbol_order=0)
+
+Gimple Code :
+bb 2
+gimple_assign     GIMPLE_SINGLE_RHS     
+gimple_assign     GIMPLE_SINGLE_RHS     
+gimple_assign     GIMPLE_BINARY_RHS     
+gimple_assign     GIMPLE_SINGLE_RHS     
+gimple_call      a      b      c     
+gimple_assign     GIMPLE_BINARY_RHS     
+gimple_cond     
+bb 3
+gimple_assign     GIMPLE_UNARY_RHS     
+bb 4
+gimple_assign     GIMPLE_BINARY_RHS     
+bb 5
+gimple_assign     GIMPLE_UNARY_RHS     
+gimple_assign     GIMPLE_SINGLE_RHS     
+bb 6
+gimple_label     
+gimple_return     
+int main ()
+{
+  char d;
+  int c;
+  int b;
+  int a;
+  int D.2774;
+
+  <bb 2> :
+  a = 2;
+  c.0_1 = c;
+  c = c.0_1 + -1;
+  b = c.0_1;
+  a = foo (a, b, c);
+  _2 = a + c;
+  if (b < _2)
+    goto <bb 3>; [INV]
+  else
+    goto <bb 4>; [INV]
+
+  <bb 3> :
+  c = ~c;
+  goto <bb 5>; [INV]
+
+  <bb 4> :
+  c = a + 3;
+
+  <bb 5> :
+  d = (char) b;
+  D.2774 = 0;
+
+  <bb 6> :
+<L3>:
+  return D.2774;
+
+}
+
+
+
+;; Function foo (_Z3fooiii, funcdef_no=1, decl_uid=2759, cgraph_uid=2, symbol_order=1)
+
+Gimple Code :
+bb 2
+gimple_assign     GIMPLE_BINARY_RHS     
+gimple_assign     GIMPLE_BINARY_RHS     
+gimple_assign     GIMPLE_SINGLE_RHS     
+bb 3
+gimple_label     
+gimple_return     
+int foo (int p, int q, int r)
+{
+  int D.2776;
+
+  <bb 2> :
+  _1 = p + r;
+  q = _1 + -4;
+  D.2776 = 0;
+
+  <bb 3> :
+<L0>:
+  return D.2776;
+
+}
+
+

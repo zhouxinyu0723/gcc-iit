@@ -1,0 +1,52 @@
+﻿Problem
+-------
+
+          In this assignment we will learn to access gimple statements. We will also 
+          learn to analyze and extract individual parameters that comprise a gimple 
+          statement.
+
+          Write a dynamic plugin to
+          a.  Identify the gimple statements and classify them as
+              i. assignment statement 
+              ii. conditional statement 
+              iii. call statement
+
+          b.  You have identified assignment statements. Now classify them based on 
+              the type of operator on the right hand side as,
+              i. var = var            // No operator
+              ii. var = uop var       // Unary operator
+              iii. var = var bop var  // Binary operator
+
+              where,
+                var = variable
+                uop = unary operator (consider, unary minus)
+                bop = binary operator (consider +,-,/,*)
+
+          c. You have identified the call statements. Now print the names of all the 
+             arguments passed to the call statement.
+             For eg. 
+                myfunction(a,b,c) is a call statement, 
+                you need to print the arguments  a, b, c.
+   
+Procedure
+---------
+
+          Basic structure of the plugin is provided to you. Use it and follow
+          the below steps.
+
+          1. Use the  `gimple_code' of the statement to  find out its
+             type as  `GIMPLE_ASSIGN', `GIMPLE_CALL', etc. You  can find
+             list of  all types in `gcc-4.6.0/gcc/gimple.def'  file. You
+             can also get the list  in gcc internals, page 239/694 under
+             the heading "GIMPLE instruction  set" Alternatively you can
+             use  the  API's `is_gimple_assign',  `is_gimple_call'  etc.
+             which are defined in file gimple.h
+
+          2. Use  the   API  `get_gimple_rhs_class'   to  find   out  if
+             the  statement  contains  unary operator,  binary  operator
+             or  none.   Details  about  class  of   GIMPLE  expressions
+             `gimple_rhs_class' can be found in file gimple.h
+
+          3. To access  arguments passed  to gimple call  statement, use
+             the API `gimple_call_arg'.
+

@@ -1,0 +1,53 @@
+
+;; Function main (main, funcdef_no=0, decl_uid=3236, cgraph_uid=1, symbol_order=2)
+
+Local variables :
+c
+b
+a
+Global variables :
+q
+p
+int main ()
+{
+  int * c;
+  int b;
+  int a;
+  int D.3245;
+
+  <bb 2> :
+  p = &b;
+  callme (a);
+  D.3245 = 0;
+  b = {CLOBBER(eol)};
+
+  <bb 3> :
+<L1>:
+  return D.3245;
+
+}
+
+
+
+;; Function callme (_Z6callmei, funcdef_no=1, decl_uid=3235, cgraph_uid=2, symbol_order=3)
+
+Local variables :
+d
+Global variables :
+q
+p
+void callme (int a)
+{
+  int * d;
+
+  <bb 2> :
+  p.0_1 = p;
+  _2 = MEM[(int *)p.0_1 + 12B];
+  a = _2;
+  q = &a;
+  d = q;
+  return;
+
+}
+
+
